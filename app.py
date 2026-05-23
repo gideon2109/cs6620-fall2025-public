@@ -548,7 +548,9 @@ def auto_load_data():
 
             for row in reader:
                 if all(col in row for col in ['recordErrorID', 'recordFile', 'exampleExample', 'recordTime']):
-                    try:
+                required_cols = ["recordErrorID", "recordFile",
+                                 "exampleExample", "recordTime"]
+                if all(col in row for col in required_cols):
                         record_time = time_to_seconds(row['recordTime']) if row['recordTime'].strip() else 0.0
                         record_file = row['recordFile'].strip()
 
