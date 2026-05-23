@@ -548,12 +548,12 @@ def auto_load_data():
                 csv_content = f.read()
 
             csv_error_data = []
-                required_cols = ['recordErrorID', 'recordFile',\
+                required_cols = ['recordErrorID', 'recordFile',
                                  'exampleExample', 'recordTime']
 
-                        record_time = (\
-                            time_to_seconds(row['recordTime'])\
-                            if row['recordTime'].strip() else 0.0\
+                        record_time = (
+                            time_to_seconds(row['recordTime'])
+                            if row['recordTime'].strip() else 0.0
                         )
                 required_cols = ['recordErrorID', 'recordFile', 'exampleExample', 'recordTime']
                 if all(col in row for col in required_cols):
