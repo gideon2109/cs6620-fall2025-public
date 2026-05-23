@@ -1,5 +1,4 @@
-# Version: 1.0.1
-# Built with GitHub Actions
+# Version: 1.0.1 - Built with GitHub Actions
 import os
 import re
 import csv
@@ -54,7 +53,7 @@ def parse_log_content(log_content):
     reader = csv.reader(StringIO(log_content), delimiter=delimiter)
     header = next(reader, None)
     # Find relevant column indices
-    def col(name):
+    def col(name):  # noqa: E501
         try:
             return header.index(name)
         except ValueError:
@@ -508,8 +507,7 @@ def delete_labels():
 # Auto-load CSV and audio files on startup
 def auto_load_data():
     """Try to auto-load CSV and audio files from default locations"""
-    global csv_error_data, csv_file_loaded, current_directory
-    global current_playlist, audio_file_map
+    global csv_error_data, csv_file_loaded, current_directory, current_playlist, audio_file_map
 
     # Auto-load audio directory
     audio_path = "/opt/audio"
@@ -530,9 +528,7 @@ def auto_load_data():
                         name_without_ext = os.path.splitext(filename)[0]
                         audio_file_map[name_without_ext] = full_path
 
-            app.logger.info(
-                f"Auto-loaded {len(current_playlist)} audio files from {audio_path}"
-            )
+            current_playlist.sort()
             app.logger.info(f"Auto-loaded {len(current_playlist)} audio files from {audio_path}")
 
         except Exception as e:
@@ -548,15 +544,10 @@ def auto_load_data():
                 csv_content = f.read()
 
             csv_error_data = []
-                required_cols = ['recordErrorID', 'recordFile',
-                                 'exampleExample', 'recordTime']
+            reader = csv.DictReader(StringIO(csv_content))
 
-                        record_time = (
-                            time_to_seconds(row['recordTime'])
-                            if row['recordTime'].strip() else 0.0
-                        )
-                required_cols = ['recordErrorID', 'recordFile', 'exampleExample', 'recordTime']
-                if all(col in row for col in required_cols):
+            for row in reader:
+                if all(col in row for col in ['recordErrorID', 'recordFile', 'exampleExample', 'recordTime']):
                     try:
                         record_time = time_to_seconds(row['recordTime']) if row['recordTime'].strip() else 0.0
                         record_file = row['recordFile'].strip()
@@ -572,9 +563,7 @@ def auto_load_data():
                         continue  # Skip rows with invalid time values
 
             csv_file_loaded = True
-            app.logger.info(
-                f"Auto-loaded CSV with {len(csv_error_data)} error records"
-                )
+            app.logger.info(f"Auto-loaded CSV with {len(csv_error_data)} error records")
 
         except Exception as e:
             app.logger.error(f"Failed to auto-load CSV: {e}")
@@ -583,4 +572,4 @@ def auto_load_data():
 if __name__ == '__main__':
     # Auto-load CSV and audio files on startup
     auto_load_data()
-    app.run(debug=True, host='0.0.0.0', port=5000)
+    app.run(debug=True, host='0.0.0.0', port=3000)
