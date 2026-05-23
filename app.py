@@ -508,7 +508,8 @@ def delete_labels():
 # Auto-load CSV and audio files on startup
 def auto_load_data():
     """Try to auto-load CSV and audio files from default locations"""
-    global csv_error_data, csv_file_loaded, current_directory, current_playlist, audio_file_map
+    global csv_error_data, csv_file_loaded, current_directory
+    global current_playlist, audio_file_map
 
     # Auto-load audio directory
     audio_path = "/opt/audio"
@@ -529,7 +530,9 @@ def auto_load_data():
                         name_without_ext = os.path.splitext(filename)[0]
                         audio_file_map[name_without_ext] = full_path
 
-            current_playlist.sort()
+            app.logger.info(
+                f"Auto-loaded {len(current_playlist)} audio files from {audio_path}"
+            )
             app.logger.info(f"Auto-loaded {len(current_playlist)} audio files from {audio_path}")
 
         except Exception as e:
@@ -545,9 +548,13 @@ def auto_load_data():
                 csv_content = f.read()
 
             csv_error_data = []
-            reader = csv.DictReader(StringIO(csv_content))
+                required_cols = ['recordErrorID', 'recordFile',\
+                                 'exampleExample', 'recordTime']
 
-            for row in reader:
+                        record_time = (\
+                            time_to_seconds(row['recordTime'])\
+                            if row['recordTime'].strip() else 0.0\
+                        )
                 required_cols = ['recordErrorID', 'recordFile', 'exampleExample', 'recordTime']
                 if all(col in row for col in required_cols):
                     try:
