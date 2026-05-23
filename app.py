@@ -548,7 +548,8 @@ def auto_load_data():
             reader = csv.DictReader(StringIO(csv_content))
 
             for row in reader:
-                if all(col in row for col in ['recordErrorID', 'recordFile', 'exampleExample', 'recordTime']):
+                required_cols = ['recordErrorID', 'recordFile', 'exampleExample', 'recordTime']
+                if all(col in row for col in required_cols):
                     try:
                         record_time = time_to_seconds(row['recordTime']) if row['recordTime'].strip() else 0.0
                         record_file = row['recordFile'].strip()
