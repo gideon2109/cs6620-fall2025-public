@@ -1,3 +1,5 @@
+# Version: 1.0.1
+# Built with GitHub Actions
 import os
 import re
 import csv
@@ -565,7 +567,7 @@ def auto_load_data():
             app.logger.info(
                 f"Auto-loaded CSV with {len(csv_error_data)} error records"
                 )
-            
+
         except Exception as e:
             app.logger.error(f"Failed to auto-load CSV: {e}")
 
