@@ -501,7 +501,10 @@ def delete_labels():
         else:
             return jsonify({"success": False, "message": "No labeled segments file found to delete"})
     except Exception as e:
-        return jsonify({"success": False, "message": f"Error deleting labels file: {str(e)}"})
+        return jsonify({
+            "success": False,
+            "message": f"Error deleting labels file: {str(e)}"
+        })
 
 
 # Auto-load CSV and audio files on startup
