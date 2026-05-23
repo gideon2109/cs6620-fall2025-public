@@ -507,7 +507,8 @@ def delete_labels():
 # Auto-load CSV and audio files on startup
 def auto_load_data():
     """Try to auto-load CSV and audio files from default locations"""
-    global csv_error_data, csv_file_loaded, current_directory, current_playlist, audio_file_map
+    global csv_error_data, csv_file_loaded, current_directory
+    global current_playlist, audio_file_map
 
     # Auto-load audio directory
     audio_path = "/opt/audio"
