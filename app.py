@@ -529,7 +529,10 @@ def auto_load_data():
                         audio_file_map[name_without_ext] = full_path
 
             current_playlist.sort()
-            app.logger.info(f"Auto-loaded {len(current_playlist)} audio files from {audio_path}")
+            app.logger.info(
+                f"Auto-loaded {len(current_playlist)} audio files"
+                f" from {audio_path}"
+            )
 
         except Exception as e:
             app.logger.error(f"Failed to auto-load audio files: {e}")
@@ -579,4 +582,4 @@ def auto_load_data():
 if __name__ == '__main__':
     # Auto-load CSV and audio files on startup
     auto_load_data()
-    app.run(debug=True, host='0.0.0.0', port=3000)
+    app.run(debug=True, host='0.0.0.0', port=5000)
