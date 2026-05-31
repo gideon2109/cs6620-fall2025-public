@@ -587,7 +587,7 @@ def auto_load_data():
 
 if __name__ == '__main__':
     
-    @app.route('/version')
+@app.route('/version')
 def version():
     return f'''
     <h1>Hello from Automated CI/CD Pipeline!</h1>
@@ -596,6 +596,7 @@ def version():
     <p><strong>Build Date:</strong> {datetime.now().strftime("%Y-%m-%d %H:%M:%S")}</p>
     <p><strong>Assignment:</strong> Automated EC2 Deployment</p>
     '''
+
 
 @app.route('/health')
 def health():
