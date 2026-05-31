@@ -584,8 +584,6 @@ def auto_load_data():
         except Exception as e:
             app.logger.error(f"Failed to auto-load CSV: {e}")
 
-
-if __name__ == '__main__':
     
 @app.route('/version')
 def version():
@@ -607,6 +605,7 @@ def health():
         'timestamp': datetime.now().isoformat()
     }
     # Auto-load CSV and audio files on startup
+    if __name__ == '__main__':
     auto_load_data()
     app.run(debug=True, host='0.0.0.0', port=5000)
 # Trigger rebuild
