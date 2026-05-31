@@ -605,7 +605,7 @@ def health():
         'timestamp': datetime.now().isoformat()
     }
     # Auto-load CSV and audio files on startup
-    if __name__ == '__main__':
+if __name__ == '__main__':
     auto_load_data()
     app.run(debug=True, host='0.0.0.0', port=5000)
 # Trigger rebuild
